@@ -64,9 +64,57 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "get_pruduct_by_id",
 			"request": {
 				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "get_pruduct_by_id",
+					"host": [
+						"get_pruduct_by_id"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_product",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n        \"title\": \"Fire Truck\",\r\n        \"description\": \"toy for ages 3-5\",\r\n        \"price\": \"20.0\",\r\n        \"inventory_quantity\": \"30\",\r\n        \"image_url\": \"https://m.media-amazon.com/images/I/61ha2kBl+ZL._AC_SL1000_.jpg\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/products/1/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"products",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_Product",
+			"request": {
+				"method": "DELETE",
 				"header": []
 			},
 			"response": []
