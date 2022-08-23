@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response 
 from .models import Product
 from .serializers import ProductSerializer
+from products import serializers
 
 
 @api_view(['GET', 'POST'])
@@ -20,18 +21,28 @@ def products_list(request):
         serializer.save()
         return Response(serializer.data, status= status.HTTP_201_CREATED)
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def product_detail(request, pk: int):
-    product = get_object_or_404 (Product, pk=pk)
-    if request.method == "GET":
-        serializer = ProductSerializer(Product);
+# @api_view(['GET', 'PUT', 'DELETE'])
+# def product_detail(request, pk):
+#     product = get_object_or_404 (Product, pk=pk)
+#     if request.method == "GET":
+#         serializer = ProductSerializer(Product);
+#         return Response(serializer.data)
+#     elif request.method == "PUT":
+#         serializer = ProductSerializer(Product, data = request.data);
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data) 
+#     elif request.method == "DELETE":
+#         product.delete()
+#         return Response(status = status.HTTP_204_NO_CONTENT)
+
+@api_view(["GET"])
+def product_detail(request, pk):
+    try:
+        product = Product.objects.get(pk=pk)
+        serializer = ProductSerializer(product);
         return Response(serializer.data)
-    elif request.method == "PUT":
-        serializer = ProductSerializer(Product, data = request.data);
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data) 
-    elif request.method == "DELETE":
-        product.delete()
-        return Response(status = status.HTTP_204_NO_CONTENT)
-        
+
+    except Product.DoesNotExist:
+        return Response(status= status.HTTP_404_NOT_FOUND);
+
