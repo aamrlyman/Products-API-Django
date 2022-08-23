@@ -1,3 +1,4 @@
+from distutils.command.sdist import sdist
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -8,7 +9,6 @@ from .serializers import ProductSerializer
 
 @api_view(['GET', 'POST'])
 def products_list(request):
-
     if request.method == 'GET':
         product = Product.objects.all()
         serializer = ProductSerializer(product, many=True)
@@ -21,7 +21,7 @@ def products_list(request):
         return Response(serializer.data, status= status.HTTP_201_CREATED)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def product_detail(request, pk):
+def product_detail(request, pk: int):
     product = get_object_or_404 (Product, pk=pk)
     if request.method == "GET":
         serializer = ProductSerializer(Product);
